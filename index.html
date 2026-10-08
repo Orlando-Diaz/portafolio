@@ -123,6 +123,7 @@ h2 {
 .proyecto-cab { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; min-width: 0; }
 .proyecto h3 { margin: 0; font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.6rem; line-height: 1.15; }
 .pill { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.tipo { margin: 0; font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.5; color: var(--muted); }
 .proyecto-cuerpo { min-width: 0; }
 .desc { margin: 0 0 1.1rem; max-width: 40rem; }
 .datos { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.4rem 1rem; margin: 0 0 1.1rem; }
@@ -165,7 +166,7 @@ h2 {
       <div class="hero-grid">
         <div>
           <p class="lead">Ingeniero de Sistemas y Computación. Desarrollo backend con Java y Spring Boot y lo conecto con interfaces en Angular.</p>
-          <p>Me gradué en septiembre de 2026 en la Universidad del Quindío. Mis proyectos están desplegados y se pueden probar: un marketplace, una app de finanzas para el teléfono y una agenda para barberías que estoy construyendo en .NET.</p>
+          <p>Me gradué en septiembre de 2026 en la Universidad del Quindío. Mis proyectos están desplegados y se pueden probar: Mercadia, un marketplace; Bolsillo, una app de finanzas para el teléfono; y Fade, una agenda para barberías que estoy construyendo en .NET.</p>
           <ul class="acciones" id="acciones-hero"></ul>
         </div>
         <div class="respuesta" aria-label="Resumen del perfil en formato JSON">
@@ -274,7 +275,8 @@ const ESTADOS = {
    Un enlace con url vacía ("") no se muestra. */
 const PROYECTOS = [
   {
-    nombre: "Marketplace",
+    nombre: "Mercadia",
+    tipo: "Marketplace de productos",
     estado: "enlinea",
     descripcion: "Tienda en línea al estilo de un Mercado Libre pequeño. Cada usuario publica sus productos, compra los de otros, deja reseñas y paga con un flujo de pago simulado. Tiene filtros de búsqueda, carrito, historial de compras y un panel de administración de categorías.",
     stack: "Java · Spring Boot · Spring Security + JWT · JPA · PostgreSQL · Angular · Docker · JUnit y Mockito",
@@ -287,7 +289,8 @@ const PROYECTOS = [
     ]
   },
   {
-    nombre: "Mis Finanzas",
+    nombre: "Bolsillo",
+    tipo: "Finanzas personales para el teléfono",
     estado: "enlinea",
     descripcion: "App para llevar ingresos y gastos personales desde el teléfono. Cada usuario crea sus propias cuentas (efectivo, banco, apps), registra los movimientos por cuenta y los ve en gráficas. Se instala en el celular como una PWA.",
     stack: "Python · FastAPI · JWT · PostgreSQL · PWA",
@@ -299,13 +302,15 @@ const PROYECTOS = [
     ]
   },
   {
-    nombre: "AgendaBarber",
+    nombre: "Fade",
+    tipo: "Agenda y reservas para barberías",
     estado: "desarrollo",
     descripcion: "Agenda y reservas para barberías. Cada barbería administra su agenda desde un panel y los clientes reservan su cita sin crear cuenta, eligiendo desde una lista de barberías. Es el proyecto con el que estoy aprendiendo .NET.",
     stack: "C# · .NET 10",
-    despliegue: "",
-    nota: "",
+    despliegue: "Vercel (frontend) · Render (backend)",
+    nota: "Sigue en desarrollo. El servidor gratuito se duerme, así que el primer acceso puede tardar unos segundos.",
     enlaces: [
+      { etiqueta: "Demo",   url: "https://agenda-barber-liard.vercel.app/" },
       { etiqueta: "Código", url: "https://github.com/Orlando-Diaz/agenda-barber" }
     ]
   }
@@ -321,6 +326,7 @@ function renderProyecto(p) {
   const enlaces = p.enlaces.filter(function (e) { return e.url; });
   let html = '<article class="proyecto">';
   html += '<div class="proyecto-cab"><h3>' + esc(p.nombre) + '</h3>';
+  if (p.tipo) html += '<p class="tipo">' + esc(p.tipo) + '</p>';
   html += '<span class="pill"><span class="punto ' + estado.clase + '"></span>' + esc(estado.texto) + '</span></div>';
   html += '<div class="proyecto-cuerpo"><p class="desc">' + esc(p.descripcion) + '</p>';
   html += '<dl class="datos"><dt>Stack</dt><dd>' + esc(p.stack) + '</dd>';
