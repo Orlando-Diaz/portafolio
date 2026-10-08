@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portafolio de Orlando Díaz Ramírez, ingeniero de sistemas y desarrollador backend con Java, Spring Boot, Angular y Python.">
+<title>Orlando Díaz Ramírez</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+/* Layout: una columna editorial de 64rem. Cada sección abre con una ruta HTTP en monoespaciada (GET /proyectos).
+   Los proyectos son filas: nombre y estado a la izquierda, detalles técnicos a la derecha. */
+:root {
+  --bg: #EEF2EE;
+  --fg: #13211A;
+  --muted: #52615A;
+  --line: #C9D4CB;
+  --panel: #E4EBE5;
+  --accent: #A81F36;
+  --ok: #17683F;
+  --warn: #9A6700;
+  --font-display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1713; --fg: #E4EEE7; --muted: #9DB0A5; --line: #25352C; --panel: #14211B;
+    --accent: #FF7A8C; --ok: #52C98A; --warn: #E3B341;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1713; --fg: #E4EEE7; --muted: #9DB0A5; --line: #25352C; --panel: #14211B;
+  --accent: #FF7A8C; --ok: #52C98A; --warn: #E3B341;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  padding-block: 0 3rem;
+}
+.wrap { max-width: 64rem; margin-inline: auto; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* Barra superior */
+.top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.75rem 1.5rem; padding-block: 1.1rem; border-bottom: 1px solid var(--line);
+}
+.marca { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1rem; text-decoration: none; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; font-family: var(--font-mono); font-size: 0.8rem; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--accent); }
+.tema { font: inherit; color: var(--fg); background: transparent; border: 1px solid var(--line); padding: 0.3rem 0.65rem; cursor: pointer; }
+.tema:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Presentación */
+.hero { padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(2.5rem, 6vw, 4rem); }
+.disponible { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.25rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.punto { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--ok); flex: none; }
+.punto.warn { background: var(--warn); }
+.punto.idle { background: var(--muted); }
+.disponible .punto { animation: pulso 2.4s ease-out infinite; }
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent); }
+  100% { box-shadow: 0 0 0 0.6rem transparent; }
+}
+@media (prefers-reduced-motion: reduce) { .disponible .punto { animation: none; } }
+h1 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
+  font-family: var(--font-display); font-stretch: 125%; font-weight: 800;
+  font-size: clamp(2.1rem, 9vw, 5rem); line-height: 0.98; letter-spacing: -0.025em; text-wrap: balance;
+}
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 2rem clamp(1.5rem, 5vw, 3.5rem); align-items: start;
+}
+@media (max-width: 52rem) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.lead { font-size: clamp(1.2rem, 2.4vw, 1.45rem); line-height: 1.4; font-weight: 500; margin: 0 0 1rem; max-width: 34rem; }
+.hero p { max-width: 34rem; }
+.hero .lead + p { margin: 0; }
+.acciones { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.btn { display: inline-block; padding: 0.6rem 1rem; border: 1px solid var(--line); text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem; color: var(--fg); }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primario { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.primario:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+/* Respuesta JSON */
+.respuesta { min-width: 0; border: 1px solid var(--line); background: var(--panel); font-family: var(--font-mono); font-size: 0.82rem; }
+.respuesta-cab { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.75rem; }
+.respuesta pre { margin: 0; padding: 0.9rem; overflow-x: auto; line-height: 1.7; }
+.respuesta code { font-family: inherit; }
+.k { color: var(--fg); }
+.s { color: var(--accent); }
+.b { color: var(--ok); }
+.p { color: var(--muted); }
+
+/* Secciones */
+.seccion { padding-block: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--line); }
+.ruta { margin: 0 0 0.5rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--accent); }
+h2 {
+  margin: 0 0 1.25rem; font-family: var(--font-display); font-stretch: 112%; font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.25rem); line-height: 1.1; letter-spacing: -0.01em; text-wrap: balance;
+}
+
+/* Proyectos */
+.proyecto {
+  display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: 0.75rem 2rem; padding-block: 2rem; border-top: 1px solid var(--line);
+}
+@media (max-width: 48rem) { .proyecto { grid-template-columns: minmax(0, 1fr); } }
+.proyecto-cab { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; min-width: 0; }
+.proyecto h3 { margin: 0; font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 1.6rem; line-height: 1.15; }
+.pill { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.proyecto-cuerpo { min-width: 0; }
+.desc { margin: 0 0 1.1rem; max-width: 40rem; }
+.datos { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.4rem 1rem; margin: 0 0 1.1rem; }
+.datos dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 0.2rem; }
+.datos dd { margin: 0; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.6; overflow-wrap: anywhere; }
+.nota { margin: 0 0 1.1rem; max-width: 40rem; font-size: 0.95rem; color: var(--muted); }
+.enlaces { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin: 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 0.85rem; }
+
+/* Tecnologías */
+.grupos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr)); gap: 2rem 2.5rem; }
+.grupo h3 { margin: 0 0 0.6rem; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.grupo ul { margin: 0; padding: 0; list-style: none; }
+.grupo li { padding: 0.4rem 0; border-top: 1px solid var(--line); }
+.grupo li small { color: var(--muted); font-size: 0.85rem; }
+
+/* Formación y contacto */
+.titulo { margin: 0 0 1rem; font-family: var(--font-display); font-stretch: 110%; font-weight: 700; font-size: 1.35rem; line-height: 1.2; }
+.formacion .datos { max-width: 40rem; }
+.contacto p { max-width: 36rem; margin: 0; }
+.pie { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="marca" href="#inicio">Orlando Díaz</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#stack">Tecnologías</a>
+      <a href="#estudios">Formación</a>
+      <a href="#contacto">Contacto</a>
+      <button class="tema" id="tema" type="button">Modo oscuro</button>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <p class="disponible"><span class="punto"></span>Disponible · Armenia, Quindío · presencial, híbrido o remoto</p>
+      <h1>Orlando<br>Díaz Ramírez</h1>
+      <div class="hero-grid">
+        <div>
+          <p class="lead">Ingeniero de Sistemas y Computación. Desarrollo backend con Java y Spring Boot y lo conecto con interfaces en Angular.</p>
+          <p>Me gradué en septiembre de 2026 en la Universidad del Quindío. Mis proyectos están desplegados y se pueden probar: un marketplace, una app de finanzas para el teléfono y una agenda para barberías que estoy construyendo en .NET.</p>
+          <ul class="acciones" id="acciones-hero"></ul>
+        </div>
+        <div class="respuesta" aria-label="Resumen del perfil en formato JSON">
+          <div class="respuesta-cab"><span>GET /orlando</span><span>200 OK · application/json</span></div>
+<pre><code><span class="p">{</span>
+  <span class="k">"nombre"</span><span class="p">:</span> <span class="s">"Orlando Díaz Ramírez"</span><span class="p">,</span>
+  <span class="k">"rol"</span><span class="p">:</span> <span class="s">"Ingeniero de Sistemas"</span><span class="p">,</span>
+  <span class="k">"enfoque"</span><span class="p">:</span> <span class="p">[</span><span class="s">"backend"</span><span class="p">,</span> <span class="s">"full stack"</span><span class="p">],</span>
+  <span class="k">"lenguajes"</span><span class="p">:</span> <span class="p">[</span><span class="s">"Java"</span><span class="p">,</span> <span class="s">"Python"</span><span class="p">,</span> <span class="s">"C#"</span><span class="p">],</span>
+  <span class="k">"aprendiendo"</span><span class="p">:</span> <span class="s">".NET"</span><span class="p">,</span>
+  <span class="k">"ingles"</span><span class="p">:</span> <span class="s">"B1"</span><span class="p">,</span>
+  <span class="k">"disponible"</span><span class="p">:</span> <span class="b">true</span>
+<span class="p">}</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion" id="proyectos">
+      <p class="ruta">GET /proyectos</p>
+      <h2>Proyectos</h2>
+      <div id="lista-proyectos"></div>
+    </section>
+
+    <section class="seccion" id="stack">
+      <p class="ruta">GET /tecnologias</p>
+      <h2>Tecnologías</h2>
+      <div class="grupos">
+        <div class="grupo">
+          <h3>Backend</h3>
+          <ul>
+            <li>Java</li>
+            <li>Spring Boot, Spring Security y JWT</li>
+            <li>JPA e Hibernate</li>
+            <li>Python y FastAPI</li>
+            <li>C# y .NET <small>(aprendiendo)</small></li>
+          </ul>
+        </div>
+        <div class="grupo">
+          <h3>Frontend</h3>
+          <ul>
+            <li>Angular</li>
+            <li>TypeScript</li>
+            <li>HTML y CSS</li>
+            <li>Bootstrap</li>
+            <li>PWA</li>
+          </ul>
+        </div>
+        <div class="grupo">
+          <h3>Datos</h3>
+          <ul>
+            <li>PostgreSQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+          </ul>
+        </div>
+        <div class="grupo">
+          <h3>Herramientas</h3>
+          <ul>
+            <li>Git y GitHub</li>
+            <li>Docker</li>
+            <li>Maven</li>
+            <li>JUnit y Mockito</li>
+            <li>Swagger</li>
+            <li>Scrum con Jira</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion formacion" id="estudios">
+      <p class="ruta">GET /formacion</p>
+      <h2>Formación</h2>
+      <p class="titulo">Ingeniería de Sistemas y Computación</p>
+      <dl class="datos">
+        <dt>Universidad</dt><dd>Universidad del Quindío</dd>
+        <dt>Grado</dt><dd>Septiembre de 2026</dd>
+        <dt>Idiomas</dt><dd>Español nativo · Inglés B1</dd>
+      </dl>
+    </section>
+
+    <section class="seccion contacto" id="contacto">
+      <p class="ruta">POST /contacto</p>
+      <h2>Hablemos</h2>
+      <p>Me interesan los roles de desarrollo de software, las prácticas y los proyectos colaborativos. Si tienes algo en mente, escríbeme por cualquiera de estos medios.</p>
+      <ul class="acciones" id="acciones-contacto"></ul>
+    </section>
+  </main>
+
+  <footer class="pie">Orlando Díaz Ramírez · 2026 · Hecho con HTML, CSS y JavaScript</footer>
+</div>
+
+<script>
+/* ============ DATOS: aquí editas tu información ============ */
+const PERFIL = {
+  github: "https://github.com/Orlando-Diaz",
+  linkedin: "https://www.linkedin.com/in/orlando-diaz-ramirez-a84440273"   // si dejas esta URL vacía, el botón de LinkedIn no aparece
+};
+
+const ESTADOS = {
+  enlinea:    { texto: "En línea",      clase: "" },
+  desarrollo: { texto: "En desarrollo", clase: "warn" },
+  codigo:     { texto: "Solo código",   clase: "idle" }
+};
+
+/* Para agregar un proyecto, copia uno de estos bloques y cambia sus datos.
+   Un enlace con url vacía ("") no se muestra. */
+const PROYECTOS = [
+  {
+    nombre: "Marketplace",
+    estado: "enlinea",
+    descripcion: "Tienda en línea al estilo de un Mercado Libre pequeño. Cada usuario publica sus productos, compra los de otros, deja reseñas y paga con un flujo de pago simulado. Tiene filtros de búsqueda, carrito, historial de compras y un panel de administración de categorías.",
+    stack: "Java · Spring Boot · Spring Security + JWT · JPA · PostgreSQL · Angular · Docker · JUnit y Mockito",
+    despliegue: "Vercel (frontend) · Render (backend) · Neon (base de datos)",
+    nota: "La pantalla de login trae cuentas de prueba. El servidor gratuito se duerme, así que el primer acceso puede tardar unos segundos.",
+    enlaces: [
+      { etiqueta: "Demo",     url: "https://marketplace-orlandodiaz.vercel.app/" },
+      { etiqueta: "Backend",  url: "https://github.com/Orlando-Diaz/marketplace-backend" },
+      { etiqueta: "Frontend", url: "https://github.com/Orlando-Diaz/marketplace-frontend" }
+    ]
+  },
+  {
+    nombre: "Mis Finanzas",
+    estado: "enlinea",
+    descripcion: "App para llevar ingresos y gastos personales desde el teléfono. Cada usuario crea sus propias cuentas (efectivo, banco, apps), registra los movimientos por cuenta y los ve en gráficas. Se instala en el celular como una PWA.",
+    stack: "Python · FastAPI · JWT · PostgreSQL · PWA",
+    despliegue: "Render · Neon",
+    nota: "El servidor gratuito se duerme, así que el primer acceso puede tardar unos segundos.",
+    enlaces: [
+      { etiqueta: "Demo",   url: "https://mis-finanzas-hhte.onrender.com/" },
+      { etiqueta: "Código", url: "https://github.com/Orlando-Diaz/gestor-finanzas" }
+    ]
+  },
+  {
+    nombre: "AgendaBarber",
+    estado: "desarrollo",
+    descripcion: "Agenda y reservas para barberías. Cada barbería administra su agenda desde un panel y los clientes reservan su cita sin crear cuenta, eligiendo desde una lista de barberías. Es el proyecto con el que estoy aprendiendo .NET.",
+    stack: "C# · .NET 10",
+    despliegue: "",
+    nota: "",
+    enlaces: [
+      { etiqueta: "Código", url: "https://github.com/Orlando-Diaz/agenda-barber" }
+    ]
+  }
+];
+
+/* ============ CÓDIGO: arma la página con los datos de arriba ============ */
+function esc(texto) {
+  return String(texto).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function renderProyecto(p) {
+  const estado = ESTADOS[p.estado] || ESTADOS.codigo;
+  const enlaces = p.enlaces.filter(function (e) { return e.url; });
+  let html = '<article class="proyecto">';
+  html += '<div class="proyecto-cab"><h3>' + esc(p.nombre) + '</h3>';
+  html += '<span class="pill"><span class="punto ' + estado.clase + '"></span>' + esc(estado.texto) + '</span></div>';
+  html += '<div class="proyecto-cuerpo"><p class="desc">' + esc(p.descripcion) + '</p>';
+  html += '<dl class="datos"><dt>Stack</dt><dd>' + esc(p.stack) + '</dd>';
+  if (p.despliegue) html += '<dt>Despliegue</dt><dd>' + esc(p.despliegue) + '</dd>';
+  html += '</dl>';
+  if (p.nota) html += '<p class="nota">' + esc(p.nota) + '</p>';
+  if (enlaces.length) {
+    html += '<ul class="enlaces">' + enlaces.map(function (e) {
+      return '<li><a href="' + esc(e.url) + '" target="_blank" rel="noopener">' + esc(e.etiqueta) + ' ↗</a></li>';
+    }).join("") + '</ul>';
+  }
+  return html + '</div></article>';
+}
+
+function renderAcciones(contenedor, conProyectos) {
+  const items = [];
+  if (conProyectos) items.push({ texto: "Ver proyectos", url: "#proyectos", externo: false });
+  if (PERFIL.github) items.push({ texto: "GitHub ↗", url: PERFIL.github, externo: true });
+  if (PERFIL.linkedin) items.push({ texto: "LinkedIn ↗", url: PERFIL.linkedin, externo: true });
+  contenedor.innerHTML = items.map(function (it, i) {
+    const destino = it.externo ? ' target="_blank" rel="noopener"' : "";
+    return '<li><a class="btn' + (i === 0 ? " primario" : "") + '" href="' + esc(it.url) + '"' + destino + ">" + esc(it.texto) + "</a></li>";
+  }).join("");
+}
+
+document.getElementById("lista-proyectos").innerHTML = PROYECTOS.map(renderProyecto).join("");
+renderAcciones(document.getElementById("acciones-hero"), true);
+renderAcciones(document.getElementById("acciones-contacto"), false);
+
+/* Botón de tema claro/oscuro */
+const raiz = document.documentElement;
+const botonTema = document.getElementById("tema");
+const oscuroDelSistema = window.matchMedia("(prefers-color-scheme: dark)");
+
+function esOscuro() {
+  const elegido = raiz.getAttribute("data-theme");
+  return elegido ? elegido === "dark" : oscuroDelSistema.matches;
+}
+function actualizarBoton() {
+  botonTema.textContent = esOscuro() ? "Modo claro" : "Modo oscuro";
+}
+try {
+  const guardado = localStorage.getItem("tema");
+  if (guardado === "light" || guardado === "dark") raiz.setAttribute("data-theme", guardado);
+} catch (e) {}
+botonTema.addEventListener("click", function () {
+  const nuevo = esOscuro() ? "light" : "dark";
+  raiz.setAttribute("data-theme", nuevo);
+  try { localStorage.setItem("tema", nuevo); } catch (e) {}
+  actualizarBoton();
+});
+oscuroDelSistema.addEventListener("change", actualizarBoton);
+actualizarBoton();
+</script>
+</body>
+</html>
