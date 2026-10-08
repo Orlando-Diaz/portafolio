@@ -166,7 +166,7 @@ h2 {
       <div class="hero-grid">
         <div>
           <p class="lead">Ingeniero de Sistemas y Computación. Desarrollo backend con Java y Spring Boot y lo conecto con interfaces en Angular.</p>
-          <p>Me gradué en septiembre de 2026 en la Universidad del Quindío. Mis proyectos están desplegados y se pueden probar: Mercadia, un marketplace; Bolsillo, una app de finanzas para el teléfono; y Fade, una agenda para barberías que estoy construyendo en .NET.</p>
+          <p>Me gradué en septiembre de 2026 en la Universidad del Quindío. Mis proyectos están desplegados y se pueden probar: Mercadia, un marketplace; Bolsillo, una app de finanzas para el teléfono; y Fade, una agenda para barberías hecha con .NET y Angular.</p>
           <ul class="acciones" id="acciones-hero"></ul>
         </div>
         <div class="respuesta" aria-label="Resumen del perfil en formato JSON">
@@ -304,11 +304,11 @@ const PROYECTOS = [
   {
     nombre: "Fade",
     tipo: "Agenda y reservas para barberías",
-    estado: "desarrollo",
-    descripcion: "Agenda y reservas para barberías. Cada barbería administra su agenda desde un panel y los clientes reservan su cita sin crear cuenta, eligiendo desde una lista de barberías. Es el proyecto con el que estoy aprendiendo .NET.",
-    stack: "C# · .NET 10",
-    despliegue: "Vercel (frontend) · Render (backend)",
-    nota: "Sigue en desarrollo. El servidor gratuito se duerme, así que el primer acceso puede tardar unos segundos.",
+    estado: "enlinea",
+    descripcion: "El cliente reserva su turno desde el celular, sin crear cuenta. El dueño ve su agenda en un calendario mensual, confirma o cancela citas, envía recordatorios por WhatsApp y administra sus servicios, barberos y horarios. Cada barbería tiene su propio enlace y un código QR. Es el proyecto con el que estoy aprendiendo .NET.",
+    stack: ".NET 10 (ASP.NET Core, EF Core) · PostgreSQL · Angular · JWT · Docker · xUnit",
+    despliegue: "Vercel (frontend) · Render (API) · Neon (base de datos)",
+    nota: "Una restricción en la base de datos impide que dos clientes reserven la misma hora. La API gratuita se duerme, así que la primera carga puede tardar hasta un minuto.",
     enlaces: [
       { etiqueta: "Demo",   url: "https://agenda-barber-liard.vercel.app/" },
       { etiqueta: "Código", url: "https://github.com/Orlando-Diaz/agenda-barber" }
